@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: x-front
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: x-front
+  template:
+    metadata:
+      labels:
+        app: x-front
+    spec:
+      containers:
+        - name: x-front
+          image: docker.io/toolod/x-frontserver:1.0.0-20250407-a68606f
+          args: ["--spring.profiles.active=beta"]
+          ports:
+            - containerPort: 8080

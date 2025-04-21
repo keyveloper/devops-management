@@ -1,0 +1,5 @@
+apiVersion: v2
+name: x-spring-template
+description: Helm chart template for my X Spring Boot MSA Server
+version: 0.1.0
+appVersion: "1.0"

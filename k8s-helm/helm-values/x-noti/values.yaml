@@ -1,0 +1,16 @@
+replicaCount: 3
+
+image:
+  repository: docker.io/toolod/x-noti-api-server
+  tag: 1.0.0-20250420-def456
+
+service:
+  name: x-noti
+  port: 80
+  targetPort: 8080
+  type: LoadBalancer
+
+ingress:
+  enabled: true
+  host: x-noti.example.com
+  path: /

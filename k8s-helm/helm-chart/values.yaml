@@ -1,12 +1,18 @@
 replicaCount: 3
 
 image:
+  repository: docker.io/toolod/x-frontserver
   pullPolicy: IfNotPresent
+  tag: latest
+  args: ["--spring.profiles.active=beta"]
 
 service:
+  name: x-front
   port: 80
   targetPort: 8080
   type: LoadBalancer
 
 ingress:
   enabled: true
+  host: x-front.example.com
+  path: /

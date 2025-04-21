@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.service. }}
+  name: {{ .Values.service.name }}
 spec:
-  replicas: {{ .Values.service.name }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Values.service.name }}
@@ -14,9 +14,8 @@ spec:
     spec:
       containers:
         - name: {{ .Values.service.name }}
-          image: "{{ .Values.image.repository }}: {{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          args: {{ toJson .Values.image }}
+          args: {{ toJson .Values.image.args }}
           ports:
             - containerPort: {{ .Values.service.targetPort }}
-

@@ -1,0 +1,12 @@
+replicaCount: 3
+
+image:
+  pullPolicy: IfNotPresent
+
+service:
+  port: 80
+  targetPort: 8080
+  type: LoadBalancer
+
+ingress:
+  enabled: true

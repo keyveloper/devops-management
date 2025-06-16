@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: docker.io/toolod/x-frontserver
-  tag: 1.0.0-20250604-cd45276
+  tag: 1.0.0-20250616-4d3e1f6
 
 service:
   name: x-front

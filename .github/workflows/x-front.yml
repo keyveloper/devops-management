@@ -17,8 +17,14 @@ jobs:
     outputs:
       VERSION_TAG: ${{ steps.make-version.outputs.VERSION_TAG }}
     steps:
-      - name: 🛎️ Checkout source
+      - name: 🛎️ Checkout X-frontServer
         uses: actions/checkout@v4
+        with: 
+          repository: keyveloper/X-FrontServer
+          path: x-frontserver
+
+      - name: 🛎️ Change into project directory
+        run: cd x-frontserver
 
       - name: 🔧 Set up JDK 17
         uses: actions/setup-java@v3

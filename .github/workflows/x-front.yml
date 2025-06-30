@@ -60,9 +60,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 📦 Build & push via BuildKit
+        working-directory: x-frontserver
         run: |
           # Enable BuildKit
-          cd x-frontserver
           DOCKER_BUILDKIT=1 docker build \
             -f podman/Containerfile \
             -t ${IMAGE_NAME}:${{ needs.build.outputs.VERSION_TAG }} \

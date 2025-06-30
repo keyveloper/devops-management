@@ -66,10 +66,6 @@ jobs:
     steps:
       - name: 🛎️ Checkout devops-management repo
         uses: actions/checkout@v4
-        with:
-          repository: keyveloper/devops-management
-          ref: master
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔄 Bump x-frontserver tag in Helm values
         run: |

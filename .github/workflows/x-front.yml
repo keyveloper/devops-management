@@ -11,8 +11,8 @@ env:
   IMAGE_NAME: toolod/x-frontserver
 
 jobs:
-  build:
-    name: Build & Test
+  build-and-deploy:
+    name: Build, Publish & Deploy
     runs-on: ubuntu-latest        # ← GitHub-hosted runner
     outputs:
       VERSION_TAG: ${{ steps.make-version.outputs.VERSION_TAG }}
@@ -46,23 +46,6 @@ jobs:
         with:
           name: frontserver-jar
           path: x-frontserver/build/libs/*.jar
-          
-  deploy:
-    name: Build & Push Docker Images
-    needs: build
-    runs-on: ubuntu-latest        # ← GitHub-hosted runner
-    steps:
-      - name: 🛎️ Checkout source
-        uses: actions/checkout@v4
-        with: 
-          repository: keyveloper/X-FrontServer
-          path: x-frontserver
-
-      - name: Download JAR
-        uses: actions/download-artifact@v4
-        with:
-          name: frontserver-jar
-          path: image-context
 
       - name: 🔑 Log in to Docker Hub
         uses: docker/login-action@v2
@@ -72,7 +55,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 📦 Build & push via BuildKit
-        working-directory: image-context
         run: |
           # Enable BuildKit
           DOCKER_BUILDKIT=1 docker build \
@@ -82,6 +64,8 @@ jobs:
             .
           docker push ${IMAGE_NAME}:${{ needs.build.outputs.VERSION_TAG }}
           docker push ${IMAGE_NAME}:latest
+
+  
 
   gitops:
     name: Update Helm values & GitOps

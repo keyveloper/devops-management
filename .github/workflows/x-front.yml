@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest        # ← GitHub-hosted runner
     steps:
       - name: 🛎️ Checkout source
-        uses: actions/checkout@v4'
+        uses: actions/checkout@v4
         with: 
           repository: keyveloper/X-FrontServer
           path: x-frontserver

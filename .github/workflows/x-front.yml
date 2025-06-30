@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: 🛎️ Checkout X-FrontServer
         uses: actions/checkout@v4
+        with: 
+          repository: keyveloper/X-FrontServer
+          path: x-frontserver
 
       - name: 🔧 Set up JDK 17 (Temurin)
         uses: actions/setup-java@v3

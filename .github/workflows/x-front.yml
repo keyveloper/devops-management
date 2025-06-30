@@ -1,7 +1,7 @@
 # .github/workflows/ci-cd.yml
 name: CI/CD Pipeline
 permissions:
-  contents: write 
+  contents: write # ✍️ write 권한 필요  
 on:
   push:
     branches:
@@ -49,9 +49,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: 📦 Build & Push Docker Image
+      - name: 📦 Build & Push Docker Image    #  👉 x-front로 이동 ! 
         run: |
-          cd x-frontserver
+          cd x-frontserver  
           DOCKER_BUILDKIT=1 docker build \
             -f podman/Containerfile \
             -t ${IMAGE_NAME}:${{ steps.make-version.outputs.VERSION_TAG }} \

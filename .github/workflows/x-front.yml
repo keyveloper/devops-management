@@ -42,7 +42,7 @@ jobs:
           gradle clean build --no-daemon
 
       - name: Upload JAR
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: frontserver-jar
           path: x-frontserver/build/libs/*.jar

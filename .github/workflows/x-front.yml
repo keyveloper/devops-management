@@ -41,11 +41,23 @@ jobs:
           cd x-frontserver
           gradle clean build --no-daemon
 
+      - name: Upload JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontserver-jar
+          path: x-frontserver/build/libs/*.jar
+          
   deploy:
     name: Build & Push Docker Images
     needs: build
     runs-on: ubuntu-latest        # ← GitHub-hosted runner
     steps:
+      - name: Download JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: frontserver-jar
+          path: image-context
+          
       - name: 🛎️ Checkout source
         uses: actions/checkout@v4
         with: 
@@ -60,7 +72,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 📦 Build & push via BuildKit
-        working-directory: x-frontserver
+        working-directory: image-context
         run: |
           # Enable BuildKit
           DOCKER_BUILDKIT=1 docker build \

@@ -26,6 +26,19 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Cache Gradle artifacts
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+
+      - name: Install Gradle CLI 8.10.2
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.10.2'
+
       - name: 🆔 Compute VERSION_TAG
         id: make-version
         run: |
@@ -33,9 +46,13 @@ jobs:
           echo "VERSION_TAG=$TAG" >> $GITHUB_ENV
           echo "::set-output name=VERSION_TAG::$TAG"
 
+      - name: Install Gradle 
+        run: |
+          sudo apt update
+          sudo apt install 
+
       - name: 🏗️ Build with Gradle
         run: |
-          chmod +x ./gradlew
           ./gradlew clean build
 
   deploy:

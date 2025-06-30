@@ -52,17 +52,17 @@ jobs:
     needs: build
     runs-on: ubuntu-latest        # ← GitHub-hosted runner
     steps:
-      - name: Download JAR
-        uses: actions/download-artifact@v4
-        with:
-          name: frontserver-jar
-          path: image-context
-          
       - name: 🛎️ Checkout source
         uses: actions/checkout@v4
         with: 
           repository: keyveloper/X-FrontServer
           path: x-frontserver
+
+      - name: Download JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: frontserver-jar
+          path: image-context
 
       - name: 🔑 Log in to Docker Hub
         uses: docker/login-action@v2
